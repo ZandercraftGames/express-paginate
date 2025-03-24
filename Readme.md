@@ -132,7 +132,7 @@ Get all the page urls with limit.
 // # app.js
 
 const express = require('express');
-const paginate = require('express-paginate');
+const paginate = require('@zandercraftgames/express-paginate');
 const app = express();
 
 // keep this before all routes that will use pagination
@@ -184,7 +184,7 @@ app.listen(3000);
 // # app.js
 
 const express = require('express');
-const paginate = require('express-paginate');
+const paginate = require('@zandercraftgames/express-paginate');
 const app = express();
 
 // keep this before all routes that will use pagination
