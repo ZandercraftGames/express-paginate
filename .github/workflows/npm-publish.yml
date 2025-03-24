@@ -24,7 +24,7 @@ jobs:
         run: yarn --immutable
 
       - name: Generate archive
-        run: yarn pack
+        run: yarn pack --filename package.tgz
 
       - run: npm publish package.tgz --tag latest --provenance
         env:
