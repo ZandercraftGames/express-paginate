@@ -26,6 +26,6 @@ jobs:
       - name: Generate archive
         run: yarn pack --filename package.tgz
 
-      - run: npm publish package.tgz --tag latest --provenance
+      - run: npm publish package.tgz --tag latest --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
