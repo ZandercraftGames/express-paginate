@@ -1,16 +1,16 @@
 
-# express-paginate
+# @zandercraftgames/express-paginate
 
 [![NPM Version][npm-image]][npm-url]
 [![NPM Downloads][downloads-image]][downloads-url]
-[![Build Status][travis-image]][travis-url]
-[![Test Coverage][coveralls-image]][coveralls-url]
 [![MIT License][license-image]][license-url]
-[![Slack][slack-image]][slack-url]
 
 > Node.js pagination middleware and view helpers.
 
-**Looking for a Koa version?**  Try using <https://github.com/koajs/ctx-paginate>, which is forked directly from this package!
+> **NOTE:** This is a fork of https://github.com/expressjs/express-paginate with the purpose of improving its compatibility
+> with Express v5 and ES Modules.
+> 
+> **Because of changes in Express v5, req.query parameters can no longer be set. If you were using `req.query.limit` or `req.query.page`, you must switch to the `req.paginate` equivalents.**
 
 **v0.2.0+**: As of `v0.2.0`, we now allow you to pass `?limit=0` to get infinite (all) results.  This may impose security or performance issues for your application, so we suggest you to write a quick middleware fix such as the one below, or use rate limiting middleware to prevent abuse.
 
@@ -22,18 +22,24 @@ app.all(function(req, res, next) {
 });
 ```
 
-
 ## Install
 
 ```bash
-npm install -S express-paginate
+npm install -S @zandercraftgames/express-paginate
+```
+```bash
+yarn add @zandercraftgames/express-paginate
 ```
 
 
 ## API
 
-```js
-const paginate = require('express-paginate');
+```cjs
+const paginate = require('@zandercraftgames/express-paginate');
+```
+
+```mjs
+import * as paginate from '@zandercraftgames/express-paginate';
 ```
 
 ### paginate
@@ -43,7 +49,8 @@ This creates a new instance of `express-paginate`.
 
 ### paginate.middleware(limit, maxLimit)
 
-This middleware validates and supplies default values to `req.skip` (an alias of `req.offset`, which can be used to skip or offset a number of records for pagination, e.g. with Mongoose you would do `Model.find().skip(req.skip)`), `req.query.limit`, `req.query.page`, `res.locals.paginate`, `res.locals.hasPreviousPages`, and `res.locals.hasNextPages`.
+This middleware validates and supplies default values to `req.skip` (an alias of `req.offset`, which can be used to skip or offset a number of records for pagination, e.g. with Mongoose you would do `Model.find().skip(req.skip)`), 
+`req.limit`, `req.page`, `res.locals.paginate`, `res.locals.hasPreviousPages`, and `res.locals.hasNextPages`.
 
 #### Arguments
 
@@ -65,7 +72,7 @@ The argument `params` is an Object and is completely optional.
 
 Pass `true` as the value for `prev` when you want to create a `<button>` or `<a>` that points to the previous page (e.g. it would generate a URL such as the one in the `href` attribute of `<a href="/users?page=1&limit=10">Prev</a>` if `req.query.page` is `2`).
 
-Pass an object for the value of `params` when you want to override querystring parameters &ndash; such as for filtering and sorting (e.g. it would generate a URL such as the one in the `href` attribute of `<a href="/users?page=1&limit=10&sort=name">Sort By Name</a>` if `params` is equal to `{ sort: 'name' }`.
+Pass an object for the value of `params` when you want to override querystring parameters &ndash; such as for filtering and sorting (e.g. it would generate a URL such as the one in the `href` attribute of `<a href="/users?page=1&limit=10&sort=name">Sort By Name</a>` if `params` is equal to `{ sort: 'name' }`).
 
 Note that if you pass only one argument with a type of Object, then it will generate a `href` with the current page and use the first argument as the value for `params`.  This is useful if you only want to do something like change the filter or sort querystring param, but not increase or decrease the page number.
 
@@ -116,8 +123,9 @@ Get all the page urls with limit.
 * `pageCount` (**required**) &ndash; a Number representing the total number of pages for the given query executed on the page.
 * `currentPage` (**required**) &ndash; a Number representing the current page.
 
+## Example
 
-## Example with mongoose ODM (see example 2 for Sequelize ORM)
+### Example with mongoose ODM (see example 2 for Sequelize ORM)
 
 ```js
 
@@ -170,7 +178,7 @@ app.listen(3000);
 
 ```
 
-## Example 2 with Sequelize ORM
+### Example 2 with Sequelize ORM
 ```js
 
 // # app.js
@@ -260,15 +268,9 @@ if paginate.hasPreviousPages || paginate.hasNextPages(pageCount)
 [MIT][license-url]
 
 
-[npm-image]: https://img.shields.io/npm/v/express-paginate.svg?style=flat
-[npm-url]: https://npmjs.org/package/express-paginate
-[travis-image]: https://img.shields.io/travis/expressjs/express-paginate.svg?style=flat
-[travis-url]: https://travis-ci.org/expressjs/express-paginate
-[coveralls-image]: https://img.shields.io/coveralls/expressjs/express-paginate.svg?style=flat
-[coveralls-url]: https://coveralls.io/r/expressjs/express-paginate?branch=master
-[downloads-image]: http://img.shields.io/npm/dm/express-paginate.svg?style=flat
-[downloads-url]: https://npmjs.org/package/express-paginate
+[npm-image]: https://img.shields.io/npm/v/%40zandercraftgames%2Fexpress-paginate.svg?style=flat
+[npm-url]: https://npmjs.org/package/@zandercraftgames/express-paginate
+[downloads-image]: http://img.shields.io/npm/dm/%40zandercraftgames%2Fexpress-paginate.svg?style=flat
+[downloads-url]: https://npmjs.org/package/@zandercraftgames/express-paginate
 [license-image]: http://img.shields.io/badge/license-MIT-blue.svg?style=flat
 [license-url]: LICENSE
-[slack-url]: https://join.slack.com/t/ladjs/shared_invite/zt-fqei6z11-Bq2trhwHQxVc5x~ifiZG0g/
-[slack-image]: https://img.shields.io/badge/chat-join%20slack-brightgreen
