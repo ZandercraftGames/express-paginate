@@ -88,15 +88,18 @@ function getArrayPages(req) {
   };
 }
 
-function middleware(limit, maxLimit) {
+function middleware(limit, maxLimit, minLimit = "0") {
   const _limit = parseInt(limit, 10) || 10;
   const _maxLimit = parseInt(maxLimit, 10) || 50;
+  const _minLimit = parseInt(minLimit, 10) || 1;
 
   return function _middleware(req, res, next) {
+    const requestedLimit = parseInt(req.query.limit, 10) || _limit; // If limit missing, default to _limit
+
     req.paginate = {};
     req.paginate.page = req.page = Math.max(parseInt(req.query.page, 10) || 1, 1);
-    req.paginate.limit = req.limit = Math.min(Math.max(parseInt(req.query.limit, 10) || _limit, 0), _maxLimit);
-    req.paginate.skip = req.skip = req.offset = (req.paginate.page - 1) * req.paginate.limit;
+    req.paginate.limit = req.limit = Math.min(Math.max(requestedLimit, _minLimit), _maxLimit); // If above _maxLimit, default to _maxLimit. If below _minLimit, default to _minLimit.
+    req.paginate.skip = req.paginate.offset = req.skip = req.offset = (req.paginate.page - 1) * req.paginate.limit;
 
     res.locals.paginate = {
       page: req.paginate.page,
