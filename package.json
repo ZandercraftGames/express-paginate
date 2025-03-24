@@ -1,6 +1,6 @@
 {
   "name": "@zandercraftgames/express-paginate",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Node.js pagination middleware and view helpers",
   "main": "./index.js",
   "type": "module",
