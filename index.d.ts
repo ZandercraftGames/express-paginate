@@ -17,6 +17,7 @@ declare module '@zandercraftgames/express-paginate' {
    *
    * @param {number} [limit=10] - The default number of items per page
    * @param {number} [maxLimit=50] - The maximum allowed number of items per page.
+   * @param {number} [minLimit=0] - The minimum requestable number of items per page.
    *
    * @returns {Function} A middleware function that can be used in an Express route.
    * It adds pagination metadata to the `req` object and makes it available for use in other middleware or route handlers.
@@ -24,7 +25,7 @@ declare module '@zandercraftgames/express-paginate' {
    * @example
    * app.use(middleware(20, 50));
    */
-  export function middleware(limit?: number, maxLimit?: number): (req: Request, res: Response, next: NextFunction) => void;
+  export function middleware(limit?: number, maxLimit?: number, minLimit?: number): (req: Request, res: Response, next: NextFunction) => void;
 
   // Declare the interfaces inside the module
   interface Paginate {
