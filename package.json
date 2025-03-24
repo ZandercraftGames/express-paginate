@@ -6,14 +6,9 @@
   "type": "module",
   "types": "index.d.ts",
   "exports": {
-    "import": {
-      "file": "./index.mjs",
-      "types": "./index.d.ts"
-    },
-    "require": {
-      "file": "./index.cjs",
-      "types": "./index.d.ts"
-    }
+    "types": "./index.d.ts",
+    "import": "./index.mjs",
+    "require": "./index.cjs"
   },
   "repository": {
     "type": "git",
