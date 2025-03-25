@@ -10,17 +10,12 @@
 > **NOTE:** This is a fork of https://github.com/expressjs/express-paginate with the purpose of improving its compatibility
 > with Express v5 and ES Modules.
 > 
+> 
 > **Because of changes in Express v5, req.query parameters can no longer be set. If you were using `req.query.limit` or `req.query.page`, you must switch to the `req.paginate` equivalents.**
 
-**v0.2.0+**: As of `v0.2.0`, we now allow you to pass `?limit=0` to get infinite (all) results.  This may impose security or performance issues for your application, so we suggest you to write a quick middleware fix such as the one below, or use rate limiting middleware to prevent abuse.
 
-```js
-app.all(function(req, res, next) {
-  // set default or minimum is 10 (as it was prior to v0.2.0)
-  if (req.query.limit <= 10) req.query.limit = 10;
-  next();
-});
-```
+**v0.2.0+**: As of `v0.2.0`, we now allow you to pass `?limit=0` to get infinite (all) results.  This may impose security or performance issues for your application, so we suggest you use the new minLimit argument to prevent this
+
 
 ## Install
 
@@ -39,7 +34,7 @@ const paginate = require('@zandercraftgames/express-paginate');
 ```
 
 ```mjs
-import * as paginate from '@zandercraftgames/express-paginate';
+import paginate from '@zandercraftgames/express-paginate';
 ```
 
 ### paginate
@@ -111,6 +106,7 @@ When executed with `req`, it will return a function that accepts two required ar
 ### paginate.getArrayPages(req)
 
 Get all the page urls with limit.
+
 ![petronas contest 2015-10-29 12-35-52](https://cloud.githubusercontent.com/assets/3213579/10810997/a5b0b190-7e39-11e5-9cca-fb00a2142640.png)
 
 #### Arguments
